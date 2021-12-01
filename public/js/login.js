@@ -1,5 +1,3 @@
-console.clear();
-
 const loginBtn = document.getElementById('login');
 const signupBtn = document.getElementById('signup');
 const sign_up = document.getElementById('sign-up');
@@ -8,9 +6,9 @@ const sign_in = document.getElementById('sign-in');
 loginBtn.addEventListener('click', (e) => {
 	let parent = e.target.parentNode.parentNode;
 	Array.from(e.target.parentNode.parentNode.classList).find((element) => {
-		if(element !== "slide-up") {
+		if (element !== "slide-up") {
 			parent.classList.add('slide-up')
-		}else{
+		} else {
 			signupBtn.parentNode.classList.add('slide-up')
 			parent.classList.remove('slide-up')
 		}
@@ -20,9 +18,9 @@ loginBtn.addEventListener('click', (e) => {
 signupBtn.addEventListener('click', (e) => {
 	let parent = e.target.parentNode;
 	Array.from(e.target.parentNode.classList).find((element) => {
-		if(element !== "slide-up") {
+		if (element !== "slide-up") {
 			parent.classList.add('slide-up')
-		}else{
+		} else {
 			loginBtn.parentNode.parentNode.classList.add('slide-up')
 			parent.classList.remove('slide-up')
 		}
@@ -30,22 +28,37 @@ signupBtn.addEventListener('click', (e) => {
 });
 
 
-sign_up.addEventListener('click',  function() {
-	const nom = document.getElementById('nom');
-	const prenom = document.getElementById('prenom');
-	// const address = document.getElementById('address');
-	// const age = document.getElementById('age');
-	// const genre = document.getElementById('genre');
-	const email = document.getElementById('email');
-	const password = document.getElementById('password');
+// sign_up.addEventListener('click', function () {
+// 	const nom = document.getElementById('nom');
+// 	const prenom = document.getElementById('prenom');
+// 	// const address = document.getElementById('address');
+// 	// const age = document.getElementById('age');
+// 	// const genre = document.getElementById('genre');
+// 	const email = document.getElementById('email');
+// 	const password = document.getElementById('password');
 
-	
+// 	console.log(nom.value);
+// 	var Nom = nom.value;
+// 	var Prenom = prenom.value;
+// 	var Email = email.value;
+// 	var Password = password.value;
 
 
-});
+// 	connection.connect(function (err) {
+// 		if (err) throw err;
+// 		console.log("Connected!");
+// 		var sql = "INSERT INTO customers (nom, prenom, email, password) VALUES (Nom, Prenom, Email, Password)";
+// 		con.query(sql, function (err, result) {
+// 			if (err) throw err;
+// 			console.log("1 record inserted");
+// 		});
+// 	});
 
 
-sign_in.addEventListener('click',  function() {
-	
+// });
 
-});
+
+// sign_in.addEventListener('click', function () {
+
+
+// });
