@@ -33,13 +33,15 @@ signupBtn.addEventListener('click', (e) => {
 sign_up.addEventListener('click',  function() {
 	const nom = document.getElementById('nom');
 	const prenom = document.getElementById('prenom');
-	const address = document.getElementById('address');
-	const age = document.getElementById('age');
-	const genre = document.getElementById('genre');
+	// const address = document.getElementById('address');
+	// const age = document.getElementById('age');
+	// const genre = document.getElementById('genre');
 	const email = document.getElementById('email');
 	const password = document.getElementById('password');
 
 	
+
+
 });
 
 
