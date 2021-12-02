@@ -1,16 +1,11 @@
-var mysql = require('mysql');
+// var mysql = require('mysql');
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+const database = require('./sqlConnection');
 require('dotenv').config()
 var path = require('path');
-
-var connection = mysql.createConnection({
-	host: process.env.DB_HOST,
-	user: process.env.DB_Login,
-	password: process.env.DB_PASSWORD,
-	database: process.env.DB_Name
-});
+const port = process.env.PORT
 
 var app = express();
 
@@ -36,47 +31,44 @@ app.get('/login', function (request, response) {
 	response.render('./Auth/login.ejs')
 });
 
-app.get('/login/submit', function (request, response) {
-	// response.render('./Auth/login.ejs')
-	// sign_up.addEventListener('click', function () {
-		const nom = document.getElementById('nom');
-		const prenom = document.getElementById('prenom');
-		// const address = document.getElementById('address');
-		// const age = document.getElementById('age');
-		// const genre = document.getElementById('genre');
-		const email = document.getElementById('email');
-		const password = document.getElementById('password');
+app.post('/submit', function (request, response) {
 
-		console.log(nom.value);
-		var Nom = nom.value;
-		var Prenom = prenom.value;
-		var Email = email.value;
-		var Password = password.value;
-
-		connection.connect(function (err) {
-			if (err) throw err;
-			console.log("Connected!");
-			var sql = "INSERT INTO customers (nom, prenom, email, password) VALUES (Nom, Prenom, Email, Password)";
-			con.query(sql, function (err, result) {
-				if (err) throw err;
-				console.log("1 record inserted");
-			});
-		});
-	// });
+	var Nom = request.body.Nom;
+	var Prenom = request.body.Prenom;
+	var Email = request.body.Email;
+	var Password = request.body.pwd;
+	var Address = request.body.Address;
+	var Genre = request.body.Genre;
+	var Age = request.body.Age;
+	var Type = "Client";
+	var GPSX = "11"
+	var GPSY = "11"
+	console.log(Nom);
+	// var dbid={$nom: Nom, $prenom: Prenom, $email: Email, $password: Password, $address: Address, $genre: Genre, $type: Type, $GPS_X: GPSX, $GPS_Y: GPSY, $age: Age};
+	var sql = "INSERT INTO `users` (nom, prenom, email, password, address, genre, type, GPS_X, GPS_Y, age) VALUES (Nom, Prenom, Email, Password, Address, Genre, Type, GPS_X, GPS_Y, Age)";
+	database.query(sql, function (err, result) {
+		if (err) throw err;
+		console.log("1 record inserted");
+	});
 	response.redirect('home');
 });
 
-// sign_in.addEventListener('click', function () {
+app.get("/sqlstatus", (req, res) => {
 
+	database.ping((err) => {
+		if (err) return res.status(500).send("MySQL Server is Down");
 
-// });
-
+		res.send("MySQL Server is Active");
+	})
+});
 
 app.post('/auth', function (request, response) {
-	var username = request.body.username;
+	var username = request.body.email;
 	var password = request.body.password;
+	console.log(username)
 	if (username && password) {
-		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function (error, results, fields) {
+		database.query('SELECT * FROM `users` WHERE email =  "' + username + '" AND password =  "' + password + '"', function (error, results, fields) {
+			console.log(results)
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.username = username;
@@ -102,4 +94,8 @@ app.get('/home', function (request, response) {
 	response.end();
 });
 
-app.listen(3000);
+
+// Server setup
+app.listen(port, () => {
+	console.log(`Server start on port ${port}`)
+})

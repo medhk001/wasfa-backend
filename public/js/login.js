@@ -28,28 +28,28 @@ signupBtn.addEventListener('click', (e) => {
 });
 
 
-sign_up.addEventListener('click', function () {
-	const nom = document.getElementById('nom');
-	const prenom = document.getElementById('prenom');
-	// const address = document.getElementById('address');
-	// const age = document.getElementById('age');
-	// const genre = document.getElementById('genre');
-	const email = document.getElementById('email');
-	const password = document.getElementById('password');
+// sign_up.addEventListener('click', function () {
+// 	const nom = document.getElementById('nom');
+// 	const prenom = document.getElementById('prenom');
+// 	// const address = document.getElementById('address');
+// 	// const age = document.getElementById('age');
+// 	// const genre = document.getElementById('genre');
+// 	const email = document.getElementById('email');
+// 	const password = document.getElementById('password');
 
-	console.log(nom.value);
-	var Nom = nom.value;
-	var Prenom = prenom.value;
-	var Email = email.value;
-	var Password = password.value;
-
-	
+// 	console.log(nom.value);
+// 	var Nom = nom.value;
+// 	var Prenom = prenom.value;
+// 	var Email = email.value;
+// 	var Password = password.value;
 
 
-});
 
 
-sign_in.addEventListener('click', function () {
+// });
 
 
-});
+// sign_in.addEventListener('click', function () {
+
+
+// });
