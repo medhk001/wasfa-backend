@@ -664,7 +664,7 @@ fieldset[disabled] .btn-default.active {
    ================================================ */
 
 .footer {
-    background: url(../img/bg6.png) no-repeat center center;
+    background: url(../images/bg6.png) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -827,7 +827,7 @@ fieldset[disabled] .btn-default.active {
     position: relative;
     height: 100vh;
     width: 100%;
-    background: url(../img/bg2.png) no-repeat center center;
+    background: url(../images/bg2.png) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -906,7 +906,7 @@ fieldset[disabled] .btn-default.active {
    ------- */
 
 .special {
-    background: url(../img/bg3.png) no-repeat center center;
+    background: url(../images/bg3.png) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1094,7 +1094,7 @@ fieldset[disabled] .btn-default.active {
     width: 100%;
     height: 5px;
     text-align: center;
-    background: 0 center repeat-x url("../img/zigzag.svg");
+    background: 0 center repeat-x url("../images/zigzag.svg");
 }
 
 .reservation td .active {
@@ -1239,7 +1239,7 @@ fieldset[disabled] .btn-default.active {
    -------- */
 
 .features {
-    background: url(../img/bg4.png) no-repeat center center;
+    background: url(../images/bg4.png) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1419,7 +1419,7 @@ fieldset[disabled] .btn-default.active {
 }
 
 .trusted .trusted-quote {
-    background: url(../img/bg5.png) no-repeat center center fixed;
+    background: url(../images/bg5.png) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1573,7 +1573,7 @@ fieldset[disabled] .btn-default.active {
    ----------- */
 
 .page_header {
-    background: url(../img/header/1.jpg) no-repeat center top;
+    background: url(../images/header/1.jpg) no-repeat center top;
     background-size: cover;
     padding: 200px 0 150px;
 }
@@ -1629,7 +1629,7 @@ fieldset[disabled] .btn-default.active {
    ------------- */
 
 .services {
-    background: #1b1e20 url(../img/services.jpg) no-repeat center top;
+    background: #1b1e20 url(../images/services.jpg) no-repeat center top;
     background-size: cover;
     padding-bottom: 95px;
 }
@@ -2938,7 +2938,7 @@ article p {
    -------- */
 
 .product-img {
-    background: url(../img/xtra/product-bg.png) no-repeat;
+    background: url(../images/xtra/product-bg.png) no-repeat;
     width: 262px;
     height: 288px;
     margin: 0 auto;
@@ -4289,7 +4289,7 @@ article.blog-mason-item p {
 }
 
 #intro4 .home {
-    background: url(../img/bg2.png) no-repeat center center fixed;
+    background: url(../images/bg2.png) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -4385,7 +4385,7 @@ article.blog-mason-item p {
 }
 
 body.boxed-wrap {
-    background: #000 url("../img/pattern/wood_pattern.png")
+    background: #000 url("../images/pattern/wood_pattern.png")
 }
 
 .body.boxed .navbar {

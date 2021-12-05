@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>ajouter recette</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="rc/rc.js" type="text/javascript"></script>
+        <link href="rc/rc.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+
+        <img src="../../public/images/photo-1484723091739-30a097e8f9291.jfif" width="1300" height="400" alt=ops...erreur/>
+     
+        <form  action="/recette/add" method="post">
+            
+            <input id="Aujourdhui" type="date" name="date" >
+            <script>
+                document.getElementById("Aujourdhui").valueAsDate = new Date(); 
+            </script>
+
+            <fieldset> 
+            
+                <legend> <h1>Ajouter votre propre recette! </h1> </legend>
+                
+ 
+ <label>  Nom de la recette </label> <input type="text" name="rc"/> <br> <br>
+ <label>  le type de recette  </label><select name="TR">
+                               <option> Entrée
+                                <option> Plat principal
+                                <option>Dessert
+                                 </select><br><br>
+           
+        
+  <label> niveau </label>
+   <select name="NR">
+                               <option>facile
+                                <option> difficile
+                                <option>moyen
+                                 </select><br><br>
+           
+                  
+ <label>thème </label> <select name="th">
+                                <option> fête
+                                <option> ..
+                                <option>...
+                                </select><br><br>
+<label> temps passé en cuisine </label>
+     <input  class="radio" type="checkbox" name="m15"  value="m15"> moins de 15 min
+     <input  class="radio" type="checkbox" name="p15" value="p15" > plus de 15 min
+      <input  class="radio" type="checkbox" name="p45" value="m45" > moins de 45 min
+      <br> <br> 
+      <label>  Description </label>   
+      <textarea  rows="5" class="etq">
+                Description de votre recette
+            </textarea>
+                  </fieldset> 
+   
+     
+    </body>
+</html>
+
+
+
+

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="<% %>" method="post">
+        <div class="table-data">
+            <table border="1">
+               <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>City</th>
+                        <th>Temps de Realisation</th>
+                        <th>Accepte</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    <%
+                    if(recettesData.length!=0){
+                    var i=1;
+                    recettesData.forEach(function(data){
+                    %>
+                    <tr>
+                        <td><%=data.id; %></td>
+                        <td><%=data.titre %></td>
+                        <td><%=data.description %></td>
+                        <td><%=data.temps_realisation %></td>
+                        <td><%=data.country %></td>
+                        <td><a href="/recettes/<%=data.id%>/accept">Accepter</a></td>
+                        <td><a href="/recettes/<%=data.id%>/delete">Supprimer</a></td>
+                    </tr>
+                    <%  i++; }) %>
+                    <% } else{ %>
+                        <tr>
+                            <td colspan="7">Aucune recette a Accepter</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
