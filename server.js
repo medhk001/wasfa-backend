@@ -21,11 +21,20 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//------------------------------------------------------------------------------------------------------------------------
+//Route Accueil
 app.get('/', function (request, response) {
 	//response.sendFile(path.join(__dirname + '/views/index.ejs'));
 	response.render('index')
 });
 
+app.get('/index_slider', function (request, response) {
+	//response.sendFile(path.join(__dirname + '/views/index.ejs'));
+	response.render('index_slider')
+});
+
+//----------------------------------------------------------------------------------------------------------------------------
+//Route Menu
 app.get('/menu_All', function (request, response) {
 	response.render('menu_all.ejs');
 });
@@ -42,11 +51,13 @@ app.get('/menu_Plat', function (request, response) {
 	response.render('menu_Plat.ejs');
 });
 
-
+//----------------------------------------------------------------------------------------------------------------------
+//Route login
 app.get('/login', function (request, response) {
 	response.render('Auth/log_in.ejs');
 });
 
+//Route signup
 app.get('/signup', function (request, response) {
 	//response.sendFile(path.join(__dirname + '/views/index.ejs'));
 	response.render('Auth/login.ejs');
@@ -65,26 +76,21 @@ app.post('/signup/submit', function (request, response) {
 	var Role = 'Client';
 	var GPSX = "11"
 	var GPSY = "11"
-	// console.log(Genre);
-	var sql = `INSERT INTO users (nom, prenom, email,password, address, age,genre, role, GPS_X, GPS_Y) 
-	VALUES (?)`;
-	var values = [Nom, Prenom, Email, Password, Address, Age, Genre, Role, GPSX, GPSY]
-	database.query(sql, [values], function (err, result) {
-		if (err) throw err;
-		// console.log("Role : ",Role);
-		console.log("one record inserted");
+	database.query('SELECT email FROM `users` WHERE email =  "' + Email + '"', function (error, results, fields) {
+		if (results.length > 0) {		
+			response.send('Email Exist');
+		} else {
+			var sql = `INSERT INTO users (nom, prenom, email,password, address, age,genre, role, GPS_X, GPS_Y) 
+		VALUES (?)`;
+			var values = [Nom, Prenom, Email, Password, Address, Age, Genre, Role, GPSX, GPSY]
+			database.query(sql, [values], function (err, result) {
+			if (err) throw err;
+			 console.log("Role : ",Role);
+			 console.log("one record inserted");
+		 });
+			response.redirect('/home');
+		}
 	});
-	response.redirect('/home')
-});
-
-
-app.get("/sqlstatus", (req, res) => {
-
-	database.ping((err) => {
-		if (err) return res.status(500).send("MySQL Server is Down");
-
-		res.send("MySQL Server is Active");
-	})
 });
 
 app.post('/auth', function (request, response) {
@@ -112,13 +118,15 @@ app.post('/auth', function (request, response) {
 app.get('/home', function (request, response) {
 	if (request.session.loggedin) {
 		var username = request.session.username;
-		console.log('user : ',username)
+		console.log('user : ', username)
 		database.query('SELECT * FROM `users` WHERE email =  "' + username + '"', function (error, results, fields) {
 			var Role = results[0].role;
+			var nom = results[0].nom;
+			var prenom = results[0].prenom;
 			if (Role === "Admin") {
-				response.render('Dashboard/dashboard')
+				response.render('Dashboard/index', { nom: nom, prenom: prenom })
 			} else {
-				response.render('Auth/profile')
+				response.render('Auth/profile', { nom: nom, prenom: prenom })
 			}
 		});
 	} else {
@@ -128,20 +136,7 @@ app.get('/home', function (request, response) {
 	// response.end();
 });
 
-// app.get('/home', function (request, response) {
-
-// 	if (request.session.loggedin) {
-// 		// response.send('Welcome back, Admin ' + request.session.username + '!');
-// 		response.render('BackOffice/dashboard')
-// 	} else {
-// 		//response.send('Please sign-in to view this page!');
-// 		// response.render('auth/log_in');
-// 		response.redirect('/login');
-// 	}
-// 	response.end();
-// });
-
-
+//-------------------------------------------------------------------------------------------------------------------
 // accept recettes by admin
 app.get('/recette/:id/accept', function (request, response) {
 
@@ -218,7 +213,16 @@ app.get('/addRecette', function (request, response) {
 	response.end();
 });
 
+//---------------------------------------------------------------------------------------------------------------------
+//test Server Sql 
+app.get("/sqlstatus", (req, res) => {
 
+	database.ping((err) => {
+		if (err) return res.status(500).send("MySQL Server is Down");
+
+		res.send("MySQL Server is Active");
+	})
+});
 
 // Server setup
 app.listen(port, () => {
