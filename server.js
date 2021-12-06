@@ -65,22 +65,16 @@ app.post('/signup/submit', function (request, response) {
 	var Role = 'Client';
 	var GPSX = "11"
 	var GPSY = "11"
-	console.log(Genre);
+	// console.log(Genre);
 	var sql = `INSERT INTO users (nom, prenom, email,password, address, age,genre, role, GPS_X, GPS_Y) 
 	VALUES (?)`;
-	var values = [Nom,Prenom,Email,Password,Address,Age,Genre,Role,GPSX,GPSY]
+	var values = [Nom, Prenom, Email, Password, Address, Age, Genre, Role, GPSX, GPSY]
 	database.query(sql, [values], function (err, result) {
 		if (err) throw err;
-		console.log("Role : ",Role);
+		// console.log("Role : ",Role);
 		console.log("one record inserted");
 	});
-	if(Role === "Admin"){
-		console.log(Role)
-		response.redirect("/home/backoffice");
-	}else{
-		console.log(Role)
-		response.redirect("/home/profil");
-	}
+	response.redirect('/home')
 });
 
 
@@ -96,19 +90,14 @@ app.get("/sqlstatus", (req, res) => {
 app.post('/auth', function (request, response) {
 	var username = request.body.email;
 	var password = request.body.password;
-	console.log(username)
+	// console.log(username)
 	if (username && password) {
 		database.query('SELECT * FROM `users` WHERE email =  "' + username + '" AND password =  "' + password + '"', function (error, results, fields) {
-			console.log(results)
+			// console.log(results)
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.username = username;
-				Role = results.Role;
-				if(Role === "Admin"){
-					response.redirect('/home/backoffice');
-				}else{
-					response.redirect('/home/profil');
-				}
+				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}
@@ -120,38 +109,45 @@ app.post('/auth', function (request, response) {
 	}
 });
 
-app.get('/home/profil', function (request, response) {
-	
+app.get('/home', function (request, response) {
 	if (request.session.loggedin) {
-		// response.send('Welcome back, ' + request.session.username + '!');
-		response.render('Auth/profil')
+		var username = request.session.username;
+		console.log('user : ',username)
+		database.query('SELECT * FROM `users` WHERE email =  "' + username + '"', function (error, results, fields) {
+			var Role = results[0].role;
+			if (Role === "Admin") {
+				response.render('Dashboard/dashboard')
+			} else {
+				response.render('Auth/profile')
+			}
+		});
 	} else {
-	    //response.send('Please sign-in to view this page!');
+		//response.send('Please sign-in to view this page!');
 		response.redirect('/login');
 	}
-	response.end();
+	// response.end();
 });
 
-app.get('/home/backoffice', function (request, response) {
-	
-	if (request.session.loggedin) {
-		// response.send('Welcome back, Admin ' + request.session.username + '!');
-		response.render('BackOffice/dashboard')
-	} else {
-		 //response.send('Please sign-in to view this page!');
-		// response.render('auth/log_in');
-		response.redirect('/login');
-	}
-	response.end();
-});
+// app.get('/home', function (request, response) {
+
+// 	if (request.session.loggedin) {
+// 		// response.send('Welcome back, Admin ' + request.session.username + '!');
+// 		response.render('BackOffice/dashboard')
+// 	} else {
+// 		//response.send('Please sign-in to view this page!');
+// 		// response.render('auth/log_in');
+// 		response.redirect('/login');
+// 	}
+// 	response.end();
+// });
 
 
 // accept recettes by admin
-app.get('/recette/:id/accept', function(request, response) {
+app.get('/recette/:id/accept', function (request, response) {
 
 	if (request.session.loggedin) {
-			let id = request.params.id;
-			connection.query("UPDATE recette SET active='yes' WHERE id = ?", [id], function(error, data, fields) {
+		let id = request.params.id;
+		connection.query("UPDATE recette SET active='yes' WHERE id = ?", [id], function (error, data, fields) {
 			if (error) {
 				return response.sendStatus(500)
 			}
@@ -165,14 +161,14 @@ app.get('/recette/:id/accept', function(request, response) {
 
 // get All reccetes
 
-app.get('/recette/allReccete', function(request, response) {
+app.get('/recette/allReccete', function (request, response) {
 
 	if (request.session.loggedin) {
-		connection.query("SELECT * FROM recette WHERE active='non'", function(error, data, fields) {
+		connection.query("SELECT * FROM recette WHERE active='non'", function (error, data, fields) {
 			if (error) {
 				return response.sendStatus(500)
 			}
-			response.render('recettesList', {titre: 'recette list', recettesData: data});
+			response.render('recettesList', { titre: 'recette list', recettesData: data });
 		})
 	} else {
 		response.send('Please login to view this page!');
@@ -183,7 +179,7 @@ app.get('/recette/allReccete', function(request, response) {
 
 // Add  recette
 
-app.post('/recette/add', function(request, response) {
+app.post('/recette/add', function (request, response) {
 
 	if (request.session.loggedin) {
 
@@ -196,10 +192,10 @@ app.post('/recette/add', function(request, response) {
 		const active = 'non'
 
 		if (titre && description) {
-			connection.query('INSERT INTO recette (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)', [titre, niveau, theme , temps_realisation, description, date_dajout, active ], function(error, results, fields) {
+			connection.query('INSERT INTO recette (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)', [titre, niveau, theme, temps_realisation, description, date_dajout, active], function (error, results, fields) {
 				if (results.length > 0) {
 					response.render('./Recettes/Recettes.ejs');
-				} 		
+				}
 				response.end();
 			});
 		} else {
@@ -213,7 +209,7 @@ app.post('/recette/add', function(request, response) {
 });
 
 //
-app.get('/addRecette', function(request, response){
+app.get('/addRecette', function (request, response) {
 	if (request.session.loggedin) {
 		response.render('./AddRecette/AddRecette.ejs');
 	} else {
