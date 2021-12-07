@@ -27,21 +27,35 @@ app.get('/dash', function (request, response) {
 	if (request.session.loggedin) {
 		var Email = request.session.username;
 		database.query('SELECT * FROM `users` WHERE email =  "' + Email + '"', function (error, results, fields) {
+			var nom = results[0].nom;
+			var prenom = results[0].prenom;
 			if (results.length > 0 && results[0].role === "Admin") {
-				var nom = results[0].nom;
-				var prenom = results[0].prenom;
 				response.render('dashboard/index', { nom: nom, prenom: prenom })
 			} else {
 				response.render('Auth/profile', { nom: nom, prenom: prenom })
 			}
 		});
-	}else{
-
+	} else {
+		response.redirect('/login')
 	}
 });
 
-app.get('/dashboard/users', function (request, response) {
-	response.render('dashboard/users')
+app.get('/dash/all_Users', function (request, response) {
+	if (request.session.loggedin) {
+		var Email = request.session.username;
+		database.query('SELECT * FROM `users` WHERE email =  "' + Email + '"', function (error, results, fields) {
+			var nom = results[0].nom;
+			var prenom = results[0].prenom;
+			if (results.length > 0 && results[0].role === "Admin") {
+				response.render('dashboard/users', { nom: nom, prenom: prenom })
+			} else {
+				response.render('Auth/profile', { nom: nom, prenom: prenom })
+			}
+		});
+	} else {
+		response.redirect('/login')
+
+	}
 });
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -79,6 +93,17 @@ app.get('/menu_Plat', function (request, response) {
 app.get('/login', function (request, response) {
 	if (request.session.loggedin) {
 		response.redirect('/home')
+	} else {
+		response.render('Auth/log_in.ejs');
+	}
+});
+
+//Route logout
+app.get('/logout', function (request, response) {
+	if (request.session.loggedin) {
+		request.session.loggedin = false;
+		request.session.username = null;
+		response.redirect('/')
 	} else {
 		response.render('Auth/log_in.ejs');
 	}
@@ -132,7 +157,7 @@ app.post('/auth', function (request, response) {
 			// AND password =  "' + password + '"
 			// console.log(results)
 			var pwd = results[0].password
-			if (results.length > 0 && password == pwd ) {
+			if (results.length > 0 && password == pwd) {
 				request.session.loggedin = true;
 				request.session.username = username;
 				response.redirect('/home');
