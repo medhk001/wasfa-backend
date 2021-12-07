@@ -281,6 +281,240 @@ app.get("/sqlstatus", (req, res) => {
 	})
 });
 
+
+// creation des routes 07 - 12 -2021
+//------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------
+app.get("/404", function (request, response){
+	response.render('404.ejs')
+});
+
+app.get("/about", function (request, response){
+	response.render('about.ejs')
+});
+
+app.get("/blog_fullwidth", function (request, response){
+	response.render('blog_fullwidth.ejs')
+});
+
+app.get("/blog_left_sidebar", function (request, response){
+	response.render('blog_left_sidebar.ejs')
+});
+
+app.get("/blog_masonry", function (request, response){
+	response.render('blog_masonry.ejs')
+});
+
+app.get("/blog_right_sidebar", function (request, response){
+	response.render('blog_right_sidebar.ejs')
+});
+
+app.get("/blog_single_image", function (request, response){
+	response.render('blog_single_image.ejs')
+});
+
+app.get("/blog_single_slider", function (request, response){
+	response.render('blog_single_slider.ejs')
+});
+
+app.get("/blog_single_video", function (request, response){
+	response.render('blog_single_video.ejs')
+});
+
+app.get("/contact", function (request, response){
+	response.render('contact.ejs')
+});
+
+app.get("/elements", function (request, response){
+	response.render('elements.ejs')
+});
+
+app.get("/gallery", function (request, response){
+	response.render('gallery.ejs')
+});
+
+app.get("/index_animation", function (request, response){
+	response.render('index_animation.ejs')
+});
+
+app.get("/index_parallax", function (request, response){
+	response.render('index_parallax.ejs')
+});
+
+app.get("/index2", function (request, response){
+	response.render('index2.ejs')
+});
+
+app.get("/menu_all", function (request, response){
+	response.render('menu_all.ejs')
+});
+
+app.get("/menu_plat", function (request, response){
+	response.render('menu_plat.ejs')
+});
+
+app.get("/menu_recette", function (request, response){
+	response.render('menu_recette.ejs')
+});
+
+app.get("/menu_RR", function (request, response){
+	response.render('menu_RR.ejs')
+});
+
+app.get("/menu_tile", function (request, response){
+	response.render('menu_tile.ejs')
+});
+
+app.get("/recipe_3col", function (request, response){
+	response.render('recipe_3col.ejs')
+});
+
+app.get("/recipe_4col", function (request, response){
+	response.render('recipe_4col.ejs')
+});
+
+app.get("/recipe_detail-image", function (request, response){
+	response.render('recipe_detail-image.ejs')
+});
+
+app.get("/recipe_detail-slider", function (request, response){
+	response.render('recipe_detail-slider.ejs')
+});
+
+app.get("/recipe_detail-video", function (request, response){
+	response.render('recipe_detail-video.ejs')
+});
+
+app.get("/recipe_masonry", function (request, response){
+	response.render('recipe_masonry.ejs')
+});
+
+app.get("/recipe", function (request, response){
+	response.render('recipe.ejs')
+});
+
+app.get("/reservation-ot", function (request, response){
+	response.render('reservation-ot.ejs')
+});
+
+app.get("/reservation", function (request, response){
+	response.render('reservation.ejs')
+});
+
+app.get("/shop_account_detail", function (request, response){
+	response.render('shop_account_detail.ejs')
+});
+
+app.get("/shop_cart", function (request, response){
+	response.render('shop_cart.ejs')
+});
+
+app.get("/shop_checkout", function (request, response){
+	response.render('shop_checkout.ejs')
+});
+
+app.get("/shop_fullwidth", function (request, response){
+	response.render('shop_fullwidth.ejs')
+});
+
+app.get("/shop_left_sidebar", function (request, response){
+	response.render('shop_left_sidebar.ejs')
+});
+
+app.get("/shop_right_sidebar", function (request, response){
+	response.render('shop_right_sidebar.ejs')
+});
+
+app.get("/shop_single_full", function (request, response){
+	response.render('shop_single_full.ejs')
+});
+
+app.get("/shop_single_left", function (request, response){
+	response.render('shop_single_left.ejs')
+});
+
+app.get("/shop_single_right", function (request, response){
+	response.render('shop_single_right.ejs')
+});
+
+app.get("/success", function (request, response){
+	response.render('success.ejs')
+});
+
+//------------------------------------------------------------------------------------------------------------
+//--------------------------- Dashbord route à vérifier-------------------
+//------------------------------------------------------------------------------------------------------------
+
+app.get("/dash/charts_chartjs", function (request, response){
+	response.render('Dashboard/charts_chartjs.ejs')
+});
+
+app.get("/dash/dashboard", function (request, response){
+	response.render('Dashboard/dashboard.ejs')
+});
+
+app.get("/dash/icons-feather", function (request, response){
+	response.render('Dashboard/icons-feather.ejs')
+});
+
+app.get("/dash/index", function (request, response){
+	response.render('Dashboard/index.ejs')
+});
+
+app.get("/dash/maps-google", function (request, response){
+	response.render('Dashboard/maps-google.ejs')
+});
+
+app.get("/dash/pages-blank", function (request, response){
+	response.render('Dashboard/pages-blank.ejs')
+});
+
+app.get("/dash/pages-profile", function (request, response){
+	response.render('Dashboard/pages-profile.ejs')
+});
+
+app.get("/dash/pages-sign-in", function (request, response){
+	response.render('Dashboard/pages-sign-in.ejs')
+});
+
+app.get("/dash/pages-sign-up", function (request, response){
+	response.render('Dashboard/pages-sign-up.ejs')
+});
+
+app.get("/dash/ui-buttons", function (request, response){
+	response.render('Dashboard/ui-buttons.ejs')
+});
+
+app.get("/dash/ui-cards", function (request, response){
+	response.render('Dashboard/ui-cards.ejs')
+});
+
+app.get("/dash/ui-forms", function (request, response){
+	response.render('Dashboard/ui-forms.ejs')
+});
+
+app.get("/dash/ui-typography", function (request, response){
+	response.render('Dashboard/ui-typography.ejs')
+});
+
+app.get("/dash/upgrade-to-pro", function (request, response){
+	response.render('Dashboard/upgrade-to-pro.ejs')
+});
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------------------------------------------------------------------
+
+
+
 // Server setup
 app.listen(port, () => {
 	console.log(`Server start on port ${port}`)
