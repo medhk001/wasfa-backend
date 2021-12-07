@@ -22,6 +22,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //------------------------------------------------------------------------------------------------------------------------
+//Route Dashboard
+app.get('/dash', function (request, response) {
+	if (request.session.loggedin) {
+		var Email = request.session.username;
+		database.query('SELECT * FROM `users` WHERE email =  "' + Email + '"', function (error, results, fields) {
+			if (results.length > 0 && results[0].role === "Admin") {
+				var nom = results[0].nom;
+				var prenom = results[0].prenom;
+				response.render('dashboard/index', { nom: nom, prenom: prenom })
+			} else {
+				response.render('Auth/profile', { nom: nom, prenom: prenom })
+			}
+		});
+	}else{
+
+	}
+});
+
+app.get('/dashboard/users', function (request, response) {
+	response.render('dashboard/users')
+});
+
+//------------------------------------------------------------------------------------------------------------------------
 //Route Accueil
 app.get('/', function (request, response) {
 	//response.sendFile(path.join(__dirname + '/views/index.ejs'));
@@ -54,13 +77,20 @@ app.get('/menu_Plat', function (request, response) {
 //----------------------------------------------------------------------------------------------------------------------
 //Route login
 app.get('/login', function (request, response) {
-	response.render('Auth/log_in.ejs');
+	if (request.session.loggedin) {
+		response.redirect('/home')
+	} else {
+		response.render('Auth/log_in.ejs');
+	}
 });
 
 //Route signup
 app.get('/signup', function (request, response) {
-	//response.sendFile(path.join(__dirname + '/views/index.ejs'));
-	response.render('Auth/login.ejs');
+	if (request.session.loggedin) {
+		response.redirect('/home')
+	} else {
+		response.render('Auth/login.ejs');
+	}
 });
 
 app.post('/signup/submit', function (request, response) {
@@ -77,17 +107,17 @@ app.post('/signup/submit', function (request, response) {
 	var GPSX = "11"
 	var GPSY = "11"
 	database.query('SELECT email FROM `users` WHERE email =  "' + Email + '"', function (error, results, fields) {
-		if (results.length > 0) {		
+		if (results.length > 0) {
 			response.send('Email Exist');
 		} else {
 			var sql = `INSERT INTO users (nom, prenom, email,password, address, age,genre, role, GPS_X, GPS_Y) 
 		VALUES (?)`;
 			var values = [Nom, Prenom, Email, Password, Address, Age, Genre, Role, GPSX, GPSY]
 			database.query(sql, [values], function (err, result) {
-			if (err) throw err;
-			 console.log("Role : ",Role);
-			 console.log("one record inserted");
-		 });
+				if (err) throw err;
+				console.log("Role : ", Role);
+				console.log("one record inserted");
+			});
 			response.redirect('/home');
 		}
 	});
@@ -98,9 +128,11 @@ app.post('/auth', function (request, response) {
 	var password = request.body.password;
 	// console.log(username)
 	if (username && password) {
-		database.query('SELECT * FROM `users` WHERE email =  "' + username + '" AND password =  "' + password + '"', function (error, results, fields) {
+		database.query('SELECT * FROM `users` WHERE email =  "' + username + '"', function (error, results, fields) {
+			// AND password =  "' + password + '"
 			// console.log(results)
-			if (results.length > 0) {
+			var pwd = results[0].password
+			if (results.length > 0 && password == pwd ) {
 				request.session.loggedin = true;
 				request.session.username = username;
 				response.redirect('/home');
