@@ -12,6 +12,20 @@
 
 	<title>All Users</title>
 
+<!-- table CSS -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/public/images/table/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="/public/css/table/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/css/table/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="/public/css/table/style.css">
+
+
 	<link href="/public/css/dashboard/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -311,7 +325,7 @@
 
 					<h1 class="h3 mb-3">All Users</h1>
 
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-12">
 							<div class="card">
 								<div class="card-header">
@@ -321,36 +335,67 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 
-					<table id="table1">
-						<tr>
-						  <th>title1</th>
-						  <th>title2</th>
-						  <th>title3</th>
-						</tr>
-						<tr>
-						  <td id="nested">
-							<table id="table2">
-							  <tr>
-								<td>cell1</td>
-								<td>cell2</td>
-								<td>cell3</td>
-							  </tr>
+					<div class="content">
+    
+						<div class="container">
+						  <h2 class="mb-5">Table Users</h2>
+						  <div class="table-responsive">
+							<table class="table table-striped custom-table">
+							  <thead>
+								<tr>
+								  <th scope="col">
+									<label class="control control--checkbox">
+									  <input type="checkbox"  class="js-check-all"/>
+									  <div class="control__indicator"></div>
+									</label>
+								  </th>
+								  <th scope="col">Id</th>
+								  <th scope="col">Nom complete</th>
+								  <th scope="col">Email</th>
+								  <th scope="col">Address</th>
+								  <th scope="col">Genre</th>
+								  <th scope="col"></th>
+								</tr>
+							  </thead>
+							  <% res.forEach(function(res,i){ %>
+							  <tbody>
+								<tr scope="row">
+								  <td>
+									<label class="control control--checkbox">
+									<input type="checkbox" />
+									<div class="control__indicator"></div>
+									</label>
+								  </td>
+								  <td>
+									<%= res.id %>
+								  </td>
+								  <td class="pl-0">
+									<div class="d-flex align-items-center">
+									  <label class="custom-control ios-switch">
+									  <input type="checkbox" class="ios-switch-control-input" checked="">
+									  <span class="ios-switch-control-indicator"></span>
+									  </label>
+					
+									  <a href="#"><%= res.nom %><%= res.prenom %></a>
+									</div>
+								  </td>
+								  <td>
+									<%= res.email %>
+								  </td>
+								  <td><%= res.address %></td>
+								  <td><%= res.genre %></td>
+								  <td><a href="#" class="more">Details</a></td>
+								</tr>
+							  </tbody>
+							  <% }) %>
 							</table>
-						  </td>
-						  <td>cell2</td>
-						  <td>cell3</td>
-						</tr>
-						<!-- <tr>
-						  <td>cell4</td>
-						  <td>cell5</td>
-						  <td>cell6</td>
-						</tr> -->
-					  </table>
-					  
-
+						  </div>
+						</div>
+					
+					  </div>
 				</div>
 			</main>
 
@@ -386,6 +431,14 @@
 	</div>
 
 	<script src="/public/js/dashboard/app.js"></script>
+
+	<!-- table JS -->
+	
+
+    <script src="/public/js/table/jquery-3.3.1.min.js"></script>
+    <script src="/public/js/table/popper.min.js"></script>
+    <script src="/public/js/table/bootstrap.min.js"></script>
+    <script src="/public/js/table/main.js"></script>
 
 </body>
 

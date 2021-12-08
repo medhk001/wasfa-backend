@@ -43,11 +43,15 @@ app.get('/dash', function (request, response) {
 app.get('/dash/all_Users', function (request, response) {
 	if (request.session.loggedin) {
 		var Email = request.session.username;
-		database.query('SELECT * FROM `users` WHERE email =  "' + Email + '"', function (error, results, fields) {
+		database.query('SELECT * FROM `users`', function (error, results, fields) {
 			var nom = results[0].nom;
 			var prenom = results[0].prenom;
+			// var email = results[0].email;
+			// var address = results[0].address;
+			// var genre = results[0].genre;
+			// var id = results[0].id;
 			if (results.length > 0 && results[0].role === "Admin") {
-				response.render('dashboard/users', { nom: nom, prenom: prenom })
+				response.render('dashboard/users', { nom: nom, prenom: prenom, res: results })
 			} else {
 				response.render('Auth/profile', { nom: nom, prenom: prenom })
 			}
