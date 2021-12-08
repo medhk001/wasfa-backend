@@ -28,7 +28,7 @@ app.get('/dash', function (request, response) {
 		var Email = request.session.username;
 		database.query('SELECT * FROM `users`', function (error, results, fields) {
 			var length = results.length;
-			console.log('length',length)
+			// console.log('length',length)
 			results.forEach(res => {
 				if(res.email == Email){
 					var nom = res.nom;
