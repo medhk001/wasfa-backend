@@ -26,14 +26,21 @@ app.use(bodyParser.json());
 app.get('/dash', function (request, response) {
 	if (request.session.loggedin) {
 		var Email = request.session.username;
-		database.query('SELECT * FROM `users` WHERE email =  "' + Email + '"', function (error, results, fields) {
-			var nom = results[0].nom;
-			var prenom = results[0].prenom;
-			if (results.length > 0 && results[0].role === "Admin") {
-				response.render('dashboard/index', { nom: nom, prenom: prenom })
-			} else {
-				response.render('Auth/profile', { nom: nom, prenom: prenom })
-			}
+		database.query('SELECT * FROM `users`', function (error, results, fields) {
+			var length = results.length;
+			console.log('length',length)
+			results.forEach(res => {
+				if(res.email == Email){
+					var nom = res.nom;
+					var prenom = res.prenom;
+					
+					if (res.role === "Admin") {
+						response.render('dashboard/index', { nom: nom, prenom: prenom, length:length })
+					} else {
+						response.render('Auth/profile', { nom: nom, prenom: prenom })
+					}
+				}
+			});
 		});
 	} else {
 		response.redirect('/login')
@@ -178,17 +185,22 @@ app.post('/auth', function (request, response) {
 
 app.get('/home', function (request, response) {
 	if (request.session.loggedin) {
-		var username = request.session.username;
-		console.log('user : ', username)
-		database.query('SELECT * FROM `users` WHERE email =  "' + username + '"', function (error, results, fields) {
-			var Role = results[0].role;
-			var nom = results[0].nom;
-			var prenom = results[0].prenom;
-			if (Role === "Admin") {
-				response.render('Dashboard/index', { nom: nom, prenom: prenom })
-			} else {
-				response.render('Auth/profile', { nom: nom, prenom: prenom })
-			}
+		var Email = request.session.username;
+		database.query('SELECT * FROM `users`', function (error, results, fields) {
+			var length = results.length;
+			console.log('length',length)
+			results.forEach(res => {
+				if(res.email == Email){
+					var nom = res.nom;
+					var prenom = res.prenom;
+					
+					if (res.role === "Admin") {
+						response.render('dashboard/index', { nom: nom, prenom: prenom, length:length })
+					} else {
+						response.render('Auth/profile', { nom: nom, prenom: prenom })
+					}
+				}
+			});
 		});
 	} else {
 		//response.send('Please sign-in to view this page!');
@@ -504,15 +516,6 @@ app.get("/dash/ui-typography", function (request, response){
 app.get("/dash/upgrade-to-pro", function (request, response){
 	response.render('Dashboard/upgrade-to-pro.ejs')
 });
-
-
-
-
-
-
-
-
-
 
 
 //-----------------------------------------------------------------------------------------------------------------------

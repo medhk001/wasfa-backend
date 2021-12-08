@@ -33,6 +33,12 @@
 						Pages
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/">
+							<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Accueil</span>
+						</a>
+					</li>
+
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="/dash/">
 							<i class="align-middle" data-feather="sliders"></i> <span
@@ -41,17 +47,17 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/dash/profile">
-							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
-						</a>
-					</li>
-
-					<li class="sidebar-item">
 						<a class="sidebar-link" href="/dash/all_Users">
-							<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">All
+							<i class="align-middle" data-feather="user"></i> <span class="align-middle">All
 								users</span>
 						</a>
 					</li>
+<!-- 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="#">
+							<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">#</span>
+						</a>
+					</li> -->
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/dash/recettes">
@@ -67,7 +73,7 @@
 						</a>
 					</li>
 
-					<li class="sidebar-header">
+					<!-- <li class="sidebar-header">
 						Tools & Components
 					</li>
 
@@ -119,9 +125,9 @@
 							<i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
 						</a>
 					</li>
-				</ul>
+				</ul> -->
 
-				<!-- <div class="sidebar-cta">
+					<!-- <div class="sidebar-cta">
 					<div class="sidebar-cta-content">
 						<strong class="d-inline-block mb-2">Upgrade to Pro</strong>
 						<div class="mb-3 text-sm">
@@ -286,7 +292,7 @@
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
-								<img src="public/images/dashboard/avatars/avatar.jpg"
+								<img src="/public/images/dashboard/avatars/avatar.jpg"
 									class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">
 									<%= nom %>
 										<%= prenom %>
@@ -324,7 +330,7 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Sales</h5>
+														<h5 class="card-title">Utilisateurs</h5>
 													</div>
 
 													<div class="col-auto">
@@ -333,11 +339,13 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">2.382</h1>
+												<h1 class="mt-1 mb-3">
+													<%= length %>
+												</h1>
 												<div class="mb-0">
-													<span class="text-danger"> <i
-															class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-													<span class="text-muted">Since last week</span>
+													<!-- <span class="text-danger"> <i
+															class="mdi mdi-arrow-bottom-right"></i> -3.65% </span> -->
+													<a class="text-muted" href='/dash/all_Users'>Voir tous les utilisateurs</a>
 												</div>
 											</div>
 										</div>
@@ -345,7 +353,7 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Visitors</h5>
+														<h5 class="card-title">Visiteurs</h5>
 													</div>
 
 													<div class="col-auto">
@@ -354,11 +362,11 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">14.212</h1>
+												<h1 class="mt-1 mb-3">212</h1>
 												<div class="mb-0">
 													<span class="text-success"> <i
-															class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-													<span class="text-muted">Since last week</span>
+															class="mdi mdi-arrow-bottom-right"></i> 10 </span>
+													<span class="text-muted">visiteurs ce jour</span>
 												</div>
 											</div>
 										</div>
@@ -368,7 +376,7 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Earnings</h5>
+														<h5 class="card-title">Recettes publie</h5>
 													</div>
 
 													<div class="col-auto">
@@ -377,11 +385,11 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">$21.300</h1>
+												<h1 class="mt-1 mb-3">300</h1>
 												<div class="mb-0">
 													<span class="text-success"> <i
-															class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-													<span class="text-muted">Since last week</span>
+															class="mdi mdi-arrow-bottom-right"></i>5 </span>
+													<span class="text-muted">publication ce jour</span>
 												</div>
 											</div>
 										</div>
