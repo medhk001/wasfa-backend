@@ -256,7 +256,9 @@ app.post('/recette/add', function (request, response) {
 
 		console.log('titre',titre)
 		if (titre && description) {
-			database.query('INSERT INTO `recette` (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)', [titre, niveau, theme, temps_realisation, description, date_dajout, active], function (error, results, fields) {
+			database.query('INSERT INTO `recette` (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)',
+			 [titre, niveau, theme, temps_realisation, description, date_dajout, active],
+			  function (error, results, fields) {
 				console.log('length', results.length)
 				if (results.length > 0 || results != 'undefined') {
 					response.render('./Recettes/Recettes.ejs');
