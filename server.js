@@ -215,7 +215,7 @@ app.get('/recette/:id/accept', function (request, response) {
 
 	if (request.session.loggedin) {
 		let id = request.params.id;
-		connection.query("UPDATE recette SET active='yes' WHERE id = ?", [id], function (error, data, fields) {
+		database.query("UPDATE recette SET active='yes' WHERE id = ?", [id], function (error, data, fields) {
 			if (error) {
 				return response.sendStatus(500)
 			}
@@ -232,14 +232,14 @@ app.get('/recette/:id/accept', function (request, response) {
 app.get('/recette/allReccete', function (request, response) {
 
 	if (request.session.loggedin) {
-		connection.query("SELECT * FROM recette WHERE active='non'", function (error, data, fields) {
+		database.query("SELECT * FROM recette WHERE active='non'", function (error, data, fields) {
 			if (error) {
 				return response.sendStatus(500)
 			}
 			response.render('recettesList', { titre: 'recette list', recettesData: data });
 		})
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/login');
 	}
 	response.end();
 
@@ -260,18 +260,20 @@ app.post('/recette/add', function (request, response) {
 		const active = 'non'
 
 		if (titre && description) {
-			connection.query('INSERT INTO recette (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)', [titre, niveau, theme, temps_realisation, description, date_dajout, active], function (error, results, fields) {
+			database.query('INSERT INTO recette (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)', [titre, niveau, theme, temps_realisation, description, date_dajout, active], function (error, results, fields) {
 				if (results.length > 0) {
 					response.render('./Recettes/Recettes.ejs');
 				}
+				response.send("votre recette a été ajouté");
 				response.end();
 			});
 		} else {
 			response.send("Merci d'ajouter un titre et une description");
-			response.end();
+			response.render('./AddRecette/AddRecette.ejs')
+			// response.end();
 		}
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/login');
 	}
 	response.end();
 });
@@ -281,7 +283,7 @@ app.get('/addRecette', function (request, response) {
 	if (request.session.loggedin) {
 		response.render('./AddRecette/AddRecette.ejs');
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/login');
 	}
 	response.end();
 });
