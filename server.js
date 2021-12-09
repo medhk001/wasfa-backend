@@ -28,7 +28,6 @@ app.get('/dash', function (request, response) {
 		var Email = request.session.username;
 		database.query('SELECT * FROM `users`', function (error, results, fields) {
 			var length = results.length;
-			// console.log('length',length)
 			results.forEach(res => {
 				if(res.email == Email){
 					var nom = res.nom;
@@ -53,10 +52,6 @@ app.get('/dash/all_Users', function (request, response) {
 		database.query('SELECT * FROM `users`', function (error, results, fields) {
 			var nom = results[0].nom;
 			var prenom = results[0].prenom;
-			// var email = results[0].email;
-			// var address = results[0].address;
-			// var genre = results[0].genre;
-			// var id = results[0].id;
 			if (results.length > 0 && results[0].role === "Admin") {
 				response.render('dashboard/users', { nom: nom, prenom: prenom, res: results })
 			} else {
@@ -188,7 +183,7 @@ app.get('/home', function (request, response) {
 		var Email = request.session.username;
 		database.query('SELECT * FROM `users`', function (error, results, fields) {
 			var length = results.length;
-			console.log('length',length)
+			// console.log('length',length)
 			results.forEach(res => {
 				if(res.email == Email){
 					var nom = res.nom;
@@ -222,7 +217,7 @@ app.get('/recette/:id/accept', function (request, response) {
 			response.redirect('/recette/allReccete');
 		})
 	} else {
-		response.send('Please login to view this page!');
+		response.redirect('/login');
 	}
 	response.end();
 });
@@ -259,10 +254,14 @@ app.post('/recette/add', function (request, response) {
 		let date_dajout = Date.now()
 		const active = 'non'
 
+		console.log('titre',titre)
 		if (titre && description) {
-			database.query('INSERT INTO recette (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)', [titre, niveau, theme, temps_realisation, description, date_dajout, active], function (error, results, fields) {
-				if (results.length > 0) {
+			database.query('INSERT INTO `recette` (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)', [titre, niveau, theme, temps_realisation, description, date_dajout, active], function (error, results, fields) {
+				console.log('length', results.length)
+				if (results.length > 0 || results != 'undefined') {
 					response.render('./Recettes/Recettes.ejs');
+				}else {
+					console.log('error undef')
 				}
 				response.send("votre recette a été ajouté");
 				response.end();
