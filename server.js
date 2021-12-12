@@ -64,6 +64,25 @@ app.get('/dash/all_Users', function (request, response) {
 	}
 });
 
+
+// app.get('/dash/all_Users', function (request, response) {
+// 	if (request.session.loggedin) {
+// 		var Email = request.session.username;
+// 		database.query('SELECT * FROM ``', function (error, results, fields) {
+// 			var nom = results[0].nom;
+// 			var prenom = results[0].prenom;
+// 			if (results.length > 0 && results[0].role === "Admin") {
+// 				response.render('Recettes/Recettes', { nom: nom, prenom: prenom, res: results })
+// 			} else {
+// 				response.render('Auth/profile', { nom: nom, prenom: prenom })
+// 			}
+// 		});
+// 	} else {
+// 		response.redirect('/login')
+
+// 	}
+// });
+
 //------------------------------------------------------------------------------------------------------------------------
 //Route Accueil
 app.get('/', function (request, response) {
@@ -166,6 +185,7 @@ app.post('/auth', function (request, response) {
 			if (results.length > 0 && password == pwd) {
 				request.session.loggedin = true;
 				request.session.username = username;
+				request.session.id = results[0].id;
 				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
@@ -225,13 +245,14 @@ app.get('/recette/:id/accept', function (request, response) {
 // get All reccetes
 
 app.get('/recette/allReccete', function (request, response) {
-
+console.log('Recettes')
 	if (request.session.loggedin) {
 		database.query("SELECT * FROM recette WHERE active='non'", function (error, data, fields) {
 			if (error) {
-				return response.sendStatus(500)
+				console.log('err',error)
+				// return response.sendStatus(500)
 			}
-			response.render('recettesList', { titre: 'recette list', recettesData: data });
+			response.render('Recettes/recette', { titre: 'recette list', recettesData: data });
 		})
 	} else {
 		response.redirect('/login');
@@ -253,8 +274,9 @@ app.post('/recette/add', function (request, response) {
 		let description = request.body.description
 		let date_dajout = Date.now()
 		const active = 'non'
+		var userId =request.session.id
 
-		console.log('titre',titre)
+		console.log('titre',userId)
 		if (titre && description) {
 			database.query('INSERT INTO `recette` (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)',
 			 [titre, niveau, theme, temps_realisation, description, date_dajout, active],
