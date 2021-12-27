@@ -181,11 +181,13 @@ app.post('/auth', function (request, response) {
 		database.query('SELECT * FROM `users` WHERE email =  "' + username + '"', function (error, results, fields) {
 			// AND password =  "' + password + '"
 			// console.log(results)
+			var id = results[0].id;
+			// console.log('id :',id)
 			var pwd = results[0].password
 			if (results.length > 0 && password == pwd) {
 				request.session.loggedin = true;
 				request.session.username = username;
-				request.session.id = results[0].id;
+				request.id = id;
 				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
@@ -245,19 +247,22 @@ app.get('/recette/:id/accept', function (request, response) {
 // get All reccetes
 
 app.get('/recette/allReccete', function (request, response) {
-console.log('Recettes')
 	if (request.session.loggedin) {
 		database.query("SELECT * FROM recette WHERE active='non'", function (error, data, fields) {
 			if (error) {
 				console.log('err',error)
 				// return response.sendStatus(500)
 			}
-			response.render('Recettes/recette', { titre: 'recette list', recettesData: data });
+			console.log("data", data)
+			// var Data =  JSON.stringify(data[0]);
+			// var Data = JSON.parse(data);
+			response.render('Recettes/recettesActive', { data: data});
+			//  response.render('Recettes/recettes-active', { titre: 'recette list', Data: data });
 		})
 	} else {
 		response.redirect('/login');
 	}
-	response.end();
+	// response.end();
 
 });
 
@@ -273,10 +278,9 @@ app.post('/recette/add', function (request, response) {
 		let temps_realisation = request.body.temps_realisation
 		let description = request.body.description
 		let date_dajout = Date.now()
-		const active = 'non'
-		var userId =request.session.id
-
-		console.log('titre',userId)
+		const active = 'non';
+		console.log("ID",request.id)
+		var userId = request.session.id
 		if (titre && description) {
 			database.query('INSERT INTO `recette` (titre, niveau, theme, temps_realisation, description, date_dajout, active ) VALUES (? , ?, ?, ?, ?, ?, ?)',
 			 [titre, niveau, theme, temps_realisation, description, date_dajout, active],
@@ -312,15 +316,15 @@ app.get('/addRecette', function (request, response) {
 });
 
 //---------------------------------------------------------------------------------------------------------------------
-//test Server Sql 
-app.get("/sqlstatus", (req, res) => {
+// //test Server Sql 
+// app.get("/sqlstatus", (req, res) => {
 
-	database.ping((err) => {
-		if (err) return res.status(500).send("MySQL Server is Down");
+// 	database.ping((err) => {
+// 		if (err) return res.status(500).send("MySQL Server is Down");
 
-		res.send("MySQL Server is Active");
-	})
-});
+// 		res.send("MySQL Server is Active");
+// 	})
+// });
 
 
 // creation des routes 07 - 12 -2021
